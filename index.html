@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Retro Bowl Clone</title>
+  <style>
+    body { margin: 0; background: #1b3a26; overflow: hidden; }
+    canvas { display: block; margin: auto; background: #2b5a34; }
+    #menu {
+      position: absolute;
+      top: 30%;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+    }
+    button {
+      background: #2ecc71;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      font-family: inherit;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <h1>RETRO FOOTBALL</h1>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <canvas id="gameCanvas" width="800" height="480"></canvas>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    let gameRunning = false;
+
+    function startGame() {
+      document.getElementById("menu").style.display = "none";
+      gameRunning = true;
+      gameLoop();
+    }
+
+    function gameLoop() {
+      if (!gameRunning) return;
+
+      // Clear screen
+      ctx.fillStyle = "#2b5a34";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw field lines
+      ctx.strokeStyle = "white";
+      for (let i = 0; i < 10; i++) {
+        ctx.beginPath();
+        ctx.moveTo(0, i * 48);
+        ctx.lineTo(canvas.width, i * 48);
+        ctx.stroke();
+      }
+
+      // Draw player (QB)
+      ctx.fillStyle = "yellow";
+      ctx.fillRect(380, 400, 40, 40);
+
+      requestAnimationFrame(gameLoop);
+    }
+  </script>
+</body>
+</html>
